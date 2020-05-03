@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>BB Galaxy Questionnaire Button</title>
+</head>
+
+
+<body style="margin: 0px;">
+  <style>
+    #btn {
+      height: calc(100vh - 2px);
+      width: calc(100vw - 2px);
+      background: rgba(0, 255, 251, 0.406);
+      border: 1px solid black;
+      border-radius: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55vh;
+      font-family: arial;
+      cursor: pointer;
+    }
+  </style>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="btn">1</div>
+  <script>
+    const getRndUserId = () =>  `UsrRnd-${Math.random() * (999999999999999 - 9999999999) + 9999999999}`;
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId') || getRndUserId();
+    const answerId = urlParams.get('answerId');
+    const btn = document.getElementById('btn');
+    btn.innerHTML = answerId;
+    btn.onclick = () => {
+      fetch(`/api/answer/${answerId}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({userId})
+        })
+    }
+  </script>
+</body>
+
+</html>
