@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
 
 on:
@@ -26,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run docker:build 
-    - run: docker rm -f worldkli | true
-    - run: docker run -d -p 2200:2200 --name worldkli gxy-worldkli
+    - run: docker rm -f questionnaire | true
+    - run: docker run -d -p 2201:2200 --network mongo --name questionnaire bb-galaxy-questionnaire
 
 

@@ -65,7 +65,7 @@
     "frontend": "react-app-rewired start --inspect-brk test --runInBand",
     "build-fe": "react-app-rewired build",
     "dev-server": "nodemon ./server/devBackendServer.js",
-    "docker:build": "npm run build && docker build -t gxy-worldkli ."
+    "docker:build": "npm run build && docker build -t bb-galaxy-questionnaire ."
   },
   "eslintConfig": {
     "extends": "react-app"
