@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-import _w from 'utils/wrapActionCreators';
 import { res1, res2, res1Border, res2Border } from 'config/colors';
 import Hotkeys from 'react-hot-keys';
 import {api} from 'utils/data';
