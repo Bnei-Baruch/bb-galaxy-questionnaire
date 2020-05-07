@@ -9,7 +9,7 @@ on:
 jobs:
   debpoy:
 
-    runs-on: self-hosted
+    runs-on: bb-galaxy-questionnaire
 
     strategy:
       matrix:
