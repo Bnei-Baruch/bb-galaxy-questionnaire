@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
 const app = express();
-const port = process.env.PORT || 2600;
+const port = process.env.PORT || 2200;
 const socketUtils = require('./server/socketUtils');
 
 app.use(morgan('dev'));
