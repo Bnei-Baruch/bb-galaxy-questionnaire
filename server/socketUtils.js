@@ -16,7 +16,8 @@ let setSocket = server => {
 function pushToClient(data) {
     console.log('push to client');
     try{
-        io.sockets.emit('pushFromServer', data);
+        if (io) io.sockets.emit('pushFromServer', data);
+        else console.error('no io');
     } catch(err) {
         console.log('socket err', err);
     }
