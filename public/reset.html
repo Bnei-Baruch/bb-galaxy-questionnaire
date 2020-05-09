@@ -35,74 +35,83 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 55vh;
+      font-size: 15vw;
       font-family: arial;
       cursor: pointer;
     }
   </style>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="btn">
-    <span id="answer-id"></span>
+    <span id="label-id"></span>
     <img id="v" style="width: 80%; display: none;" src="./v.svg" />
   </div>
   <script>
 
     const colorMap = {
-      1: {
-        bg: '#9dd0f3',
-        bgHover: '#79bcea', 
-        border: '#57acea',
-        vbg: '#57acea'
-      }, 
-      2: {
-        bg: '#9ef2b4',
-        bgHover: '#79e094', 
-        border: '#5dd17d',
-        vbg: '#59e17c'
-      }
+      bg: '#9dd0f3',
+      bgHover: '#79bcea',
+      border: '#57acea',
+      vbg: '#57acea'
     }
 
-    const getRndUserId = () =>  `UsrRnd-${Math.random() * (999999999999999 - 9999999999) + 9999999999}`;
     const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get('userId') || getRndUserId();
-    const answerId = urlParams.get('answerId');
+    const auth = urlParams.get('auth');
     const btn = document.getElementById('btn');
-    const answerIdEle = document.getElementById('answer-id');
+    const labelEle = document.getElementById('label-id');
     const vEle = document.getElementById('v');
     let preventClick = false;
 
     Object.assign(btn.style, {
-      background: colorMap[answerId].bg,
-      border: `1px solid ${colorMap[answerId].border}`
+      background: colorMap.bg,
+      border: `1px solid ${colorMap.border}`
     })
 
-    answerIdEle.innerHTML = answerId;
-    btn.onmouseover = () => !preventClick && (btn.style.background = colorMap[answerId].bgHover);
-    btn.onmouseout = () => !preventClick && (btn.style.background = colorMap[answerId].bg);
+    labelEle.innerHTML = 'Reset Quest.';
+    btn.onmouseover = () => !preventClick && (btn.style.background = colorMap.bgHover);
+    btn.onmouseout = () => !preventClick && (btn.style.background = colorMap.bg);
 
     btn.onclick = () => {
       if (preventClick) return false;
-      fetch(`/api/answer/${answerId}`,
+
+      const success = () => {
+        vEle.style.display = 'block';
+        vEle.style.background = 'block';
+        labelEle.style.display = 'none';
+        preventClick = true;
+  
+        setTimeout(() => {
+          vEle.style.display = 'none';
+          labelEle.style.display = 'block';
+          preventClick = false;
+          btn.style.background = colorMap.bg
+        }, (1000 * 1));
+      }
+
+      const error = () => {
+        preventClick = true;
+        labelEle.innerHTML = 'ERROR';
+        setTimeout(() => {
+          labelEle.innerHTML = 'Reset Quest.';
+          preventClick = false;
+        }, (1000 * 1));
+      }
+
+      fetch(`/api/reset`,
         {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
           method: "POST",
-          body: JSON.stringify({userId})
-        });
-      vEle.style.display = 'block';
-      vEle.style.background = 'block';
-      answerIdEle.style.display = 'none';
-      preventClick = true;
-
-      setTimeout(()=> {
-        vEle.style.display = 'none';
-        answerIdEle.style.display = 'block';
-        preventClick = false;
-        btn.style.background = colorMap[answerId].bg
-      }, (1000*5));
-
+          body: JSON.stringify({ auth })
+        }).then((response) => {
+          if (response.ok) {
+            success();
+          } else {
+            error();
+            return true;
+          }
+        })
     }
   </script>
 </body>

@@ -3,10 +3,16 @@ const router = express.Router();
 const questUtils = require('./questUtils');
 
 router.post('/reset', (request, response) => {
-    questUtils.reset();
-    console.log('reset questionnaire success');
-    response.json();
-})
+    try {
+        const { auth } = request.body;
+        if (auth !== 'alexmizrachi') throw {status: 401, data: {msg: 'unauthenticated user'}};
+        questUtils.reset();
+        console.log('reset questionnaire success');
+        response.json();
+    } catch (err) {
+        response.status(err.status).json(err.data || { msg: 'reset error', err });
+    }
+});
 
 router.post('/answer/:id', async (request, response) => {
     try {
