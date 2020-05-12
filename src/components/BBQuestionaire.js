@@ -35,7 +35,7 @@ const styles = theme => ({
         height: '70vh',
         display: 'flex',
         alignItems: 'flex-end',
-        marginBottom: '20%'
+        marginBottom: '30vh'
     },
     cell: {
         width: '40%',
