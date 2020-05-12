@@ -5,7 +5,7 @@ let socket;
 
 export const connectSocket = (dispatch, getState) => {
     console.log('connecting socket...');
-    socket = io(window.location.origin.indexOf('localhost') !== -1 ? 'http://localhost:2500' : window.location.origin);
+    socket = io(window.location.origin.indexOf('localhost') !== -1 ? 'http://localhost:2501' : window.location.origin);
 
     socket.on('connect', () => {
         console.log('socket connect');

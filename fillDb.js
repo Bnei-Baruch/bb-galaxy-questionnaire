@@ -3,7 +3,7 @@ const api = require('./server/data').api;
 
 const sleep = m => new Promise(r => setTimeout(r, m))
 
-// const host = 'http://localhost:2500';
+// const host = 'http://localhost:2501';
 const host = 'http://51.195.146.240:2201';
 
 

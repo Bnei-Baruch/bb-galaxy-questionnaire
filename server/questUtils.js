@@ -1,7 +1,7 @@
 const pushToClient = require('./socketUtils').pushToClient;
 
 let ans = {};
-const RESET_TIMER = 1000*40;
+const RESET_TIMER = 1000*60*5;
 
 const reset = () => {
     for (const ansId in ans) {
