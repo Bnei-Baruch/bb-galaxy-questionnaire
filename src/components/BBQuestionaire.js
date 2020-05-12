@@ -66,8 +66,8 @@ class BBQuestionaire extends React.Component {
     }
 
     reset = () => {
-        console.log('reset')
-        api({type:'reset'})
+        console.log('reset');
+        api({type:'reset', data: {auth: 'alexmizrachi'}});
     }
 
     render() {
