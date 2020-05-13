@@ -7,7 +7,9 @@ const morgan = require('morgan');
 const app = express();
 const port = process.env.PORT || 2200;
 const socketUtils = require('./server/socketUtils');
+const cors = require('cors')
 
+app.use(cors());
 app.use(morgan('dev'));
 
 app.use(bodyParser.json({ limit: '50mb' }));
